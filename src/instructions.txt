@@ -1,0 +1,52 @@
+2-way associations: related classes goes both ways (ex. student belongs to classes, but a class has students as well)
+
+Course object has an arraylist of classes that match its type
+
+Classes (school) has a Course object (does not Inherit)
+Classes have a Map of students (ID to Student object)
+Classes have a Map of assignments (assignment ID to Assignment object)
+Classes have a Teacher object
+Classes have the ability to get student averages
+    To calculate a student's average: //Student s
+        total of student = 0, total possible = 0
+        (2.) For each assignment in the map of assignments, call a.getStudentScore(s.getStudentID) and a.getPossiblePoints
+        Add those values to total of student and total possible respectively
+            If score is -1 (a checker for null scores) then don't count this toward total possible and total student - continue, as if assignment didn't exist
+        Maybe have a counter ++ing to keep track of number of assignments (or try to call assignments.size() at the end) - not necessary
+        Divide total of student by total possible to find average
+
+1. Given a particular Assignment:  // Assignment looking for is a
+    For each Student in the class, call a.getStudentScore(studentID)  // iterate over each student in the class to find all scores
+2. Given a particular Student:
+    For each Assignment in the map of assignments, call a.getStudentScore(studentID)  // same student, assignment changes in loop
+3. Given a particular Student AND a particular Assignment
+    Call a.getStudentScore(StudentID)
+
+Students have a Map of their classes enrolled in
+Students have an array of their schedule (7)
+When enrolling a Student in a Class:
+    a Class method enrolls a Student to a Class (this method calls below)
+    a Student method adds a Student to that Class
+When removing a Student from a Class:
+    remove Student from all Class-related stuff
+        To remove from a Map, mapname.remove(ID)  (but you can also write mapname.remove(object to be removed))
+When removing a Student from the whole school:
+    remove Student from wherever it is used (Class, Assignment, etc)
+When moving a Student between classes:
+    remove Student from all Class-related stuff in one class and add them to another
+
+Write an assignment clean-up method for moving/removing students from classes
+    Look at each assignment - remove the ID of the student who left from the scores map
+
+    ex. inside Class
+        Student s
+        s.addClass(this);    // calls Student method to add them to that Class
+
+When deleting a class, remove the class from the schedules of the students in it and from the schedule of the teacher teaching it
+
+Assignments have a point value (int)
+Assignments have a Map of student IDs to points they earned (double)
+To add a new assignment, add it to respective class's assignment map
+
+Teachers have a Map of classes that they teach
+Teachers have an array of their schedule (7)
